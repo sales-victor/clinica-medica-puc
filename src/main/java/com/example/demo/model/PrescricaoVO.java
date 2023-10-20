@@ -1,8 +1,11 @@
 package com.example.demo.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -10,36 +13,34 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "TB_PROCEDIMENTO")
-public class ProcedimentoVO implements Serializable {
+@Table(name = "TB_PRESCRICAO")
+public class PrescricaoVO implements Serializable{
+	
 	private static final long serialVersionUID = 1L;
 	
-	private Long codProcedimento;
+	private Long codPrescricao;
 	private Long codPaciente;
 	private Long codMedico;
 	private Date dataAtendimento;
-	private String estado;
-	private String haConvenio;
-	private String tipoConvenio;
-	private String retorno;
+	private Date dataVencimento;
 	
-	private MedicoVO medicoVO;
+	private List<MedicamentoPessoaVO> medicamentoPessoaVO = new ArrayList<>();
 	private PacienteVO pacienteVO;
-	
-	
+	private MedicoVO medicoVO;
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="COD_PROCEDIMENTO")
-	public Long getCodProcedimento() {
-		return codProcedimento;
+    @Column(name="COD_PRECISAO")
+	public Long getCodPrescricao() {
+		return codPrescricao;
 	}
-	public void setCodProcedimento(Long codProcedimento) {
-		this.codProcedimento = codProcedimento;
+	public void setCodPrescricao(Long codPrescricao) {
+		this.codPrescricao = codPrescricao;
 	}
 	
 	@Column(name="COD_PACIENTE")
@@ -66,38 +67,32 @@ public class ProcedimentoVO implements Serializable {
 		this.dataAtendimento = dataAtendimento;
 	}
 	
-	@Column(name="ESTADO")
-	public String getEstado() {
-		return estado;
+	@Column(name="DATA_VENCIMENTO")
+	public Date getDataVencimento() {
+		return dataVencimento;
 	}
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-	
-	@Column(name="HA_CONVENIO")
-	public String getHaConvenio() {
-		return haConvenio;
-	}
-	public void setHaConvenio(String haConvenio) {
-		this.haConvenio = haConvenio;
+	public void setDataVencimento(Date dataVencimento) {
+		this.dataVencimento = dataVencimento;
 	}
 	
-	@Column(name="TIPO_CONVENIO")
-	public String getTipoConvenio() {
-		return tipoConvenio;
+	@OneToMany(fetch = FetchType.LAZY, targetEntity = MedicamentoPessoaVO.class, cascade = CascadeType.ALL)
+	@JoinColumn(name = "COD_PACIENTE", referencedColumnName = "COD_PACIENTE", insertable = false, updatable = false)
+	public List<MedicamentoPessoaVO> getMedicamentoPessoaVO() {
+		return medicamentoPessoaVO;
 	}
-	public void setTipoConvenio(String tipoConvenio) {
-		this.tipoConvenio = tipoConvenio;
+	public void setMedicamentoPessoaVO(List<MedicamentoPessoaVO> medicamentoPessoaVO) {
+		this.medicamentoPessoaVO = medicamentoPessoaVO;
 	}
-	
-	@Column(name="RETORNO")
-	public String getRetorno() {
-		return retorno;
+
+
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="COD_PACIENTE", referencedColumnName = "COD_PACIENTE", insertable = false, updatable=false)
+	public PacienteVO getPacienteVO() {
+		return pacienteVO;
 	}
-	public void setRetorno(String retorno) {
-		this.retorno = retorno;
+	public void setPacienteVO(PacienteVO pacienteVO) {
+		this.pacienteVO = pacienteVO;
 	}
-	
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="COD_MEDICO", referencedColumnName = "COD_MEDICO", insertable = false, updatable=false)
@@ -108,13 +103,6 @@ public class ProcedimentoVO implements Serializable {
 		this.medicoVO = medicoVO;
 	}
 	
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="COD_PACIENTE", referencedColumnName = "COD_PACIENTE", insertable = false, updatable=false)
-	public PacienteVO getPacienteVO() {
-		return pacienteVO;
-	}
-	public void setPacienteVO(PacienteVO pacienteVO) {
-		this.pacienteVO = pacienteVO;
-	}
 	
+
 }

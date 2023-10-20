@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,7 +20,8 @@ public class CargoVO implements Serializable{
 	private String cargoDescricao;
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+	@SequenceGenerator(name="tb_cargo_seq", sequenceName="tb_cargo_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="tb_cargo_seq")
     @Column(name="COD_CARGO")
 	public Long getCodCargo() {
 		return codCargo;

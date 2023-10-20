@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "TB_PACIENTE")
@@ -25,6 +26,7 @@ public class PacienteVO  implements Serializable {
 	private Double altura;
 	
 	private PessoaVO pessoaVO;
+
 
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -71,6 +73,4 @@ public class PacienteVO  implements Serializable {
 		this.pessoaVO = pessoaVO;
 	}
 	
-	
-
 }

@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "TB_MEDICO")
@@ -23,6 +24,7 @@ public class MedicoVO implements Serializable {
 	private String codCrm;
 	
 	private EspecialidadeVO especialidadeVO;
+	
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -65,5 +67,4 @@ public class MedicoVO implements Serializable {
 	public void setEspecialidadeVO(EspecialidadeVO especialidadeVO) {
 		this.especialidadeVO = especialidadeVO;
 	}
-	
 }
