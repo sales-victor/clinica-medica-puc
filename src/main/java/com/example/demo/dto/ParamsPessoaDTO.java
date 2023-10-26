@@ -6,9 +6,9 @@ import com.example.demo.model.PessoaVO;
 
 public class ParamsPessoaDTO {
 	
-	PessoaVO pessoaVO = new PessoaVO();
-	FuncionarioVO funcionarioVO = new FuncionarioVO();
-	PacienteVO pacienteVO = new PacienteVO();
+	private PessoaVO pessoaVO; 
+	private FuncionarioVO funcionarioVO;
+	private PacienteVO pacienteVO;
 	
 	
 	public PessoaVO getPessoaVO() {

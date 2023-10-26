@@ -4,6 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +25,7 @@ public class PessoaRestCtr {
 	private PessoaService pessoaService; 
 	
 	@GetMapping("/findAll")
-	public Iterable<PessoaVO> findAll() {
+	public Retorno findAll() {
 		return pessoaService.findAll();	
 	}
 	
@@ -34,6 +38,11 @@ public class PessoaRestCtr {
 	@PostMapping("/create")
 	public Retorno create(@RequestBody ParamsPessoaDTO paramsPessoaDTO) {
 		return pessoaService.create(paramsPessoaDTO);	
+	}
+	
+	@PutMapping("/update")
+	public Retorno update(@RequestBody ParamsPessoaDTO paramsPessoaDTO) {
+		return pessoaService.update(paramsPessoaDTO);	
 	}
 
 }
