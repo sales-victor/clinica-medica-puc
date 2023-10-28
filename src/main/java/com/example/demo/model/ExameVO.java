@@ -1,7 +1,10 @@
 package com.example.demo.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -9,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -23,7 +27,7 @@ public class ExameVO implements Serializable{
 	private Long codTipoExame;
 	private String solicitanteExame;
 	
-	private TipoExameVO tipoExameVO;
+	private List<TipoExameVO> tipoExameVO = new ArrayList<>();
 	private ProcedimentoVO procedimentoVO;
 
 	@Id
@@ -64,21 +68,24 @@ public class ExameVO implements Serializable{
 		this.solicitanteExame = solicitanteExame;
 	}
 	
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="COD_TIPO_EXAME", referencedColumnName = "COD_TIPO_EXAME", insertable = false, updatable=false)
-	public TipoExameVO getTipoExameVO() {
+	@OneToMany(fetch = FetchType.LAZY, targetEntity = TipoExameVO.class, cascade = CascadeType.ALL)
+	@JoinColumn(name = "COD_TIPO_EXAME", referencedColumnName = "COD_TIPO_EXAME", insertable = false, updatable = false)
+	public List<TipoExameVO> getTipoExameVO() {
 		return tipoExameVO;
 	}
-
-	public void setTipoExameVO(TipoExameVO tipoExameVO) {
+	
+	public void setTipoExameVO(List<TipoExameVO> tipoExameVO) {
 		this.tipoExameVO = tipoExameVO;
 	}
+
+	
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="COD_PROCEDIMENTO", referencedColumnName = "COD_PROCEDIMENTO", insertable = false, updatable=false)
 	public ProcedimentoVO getProcedimentoVO() {
 		return procedimentoVO;
 	}
+
 
 	public void setProcedimentoVO(ProcedimentoVO procedimentoVO) {
 		this.procedimentoVO = procedimentoVO;
